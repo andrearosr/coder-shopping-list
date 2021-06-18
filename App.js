@@ -7,8 +7,9 @@ import {
   Text,
   View,
   FlatList,
-  Modal,
 } from 'react-native';
+import Modal from './components/Modal';
+import List from './components/List';
 
 export default function App() {
   const [inputText, setInputText] = useState('');
@@ -19,7 +20,7 @@ export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleChangeText = (text) => {
-    setInputText(text)
+    setInputText(text);
     setInputError('');
   };
 
@@ -67,36 +68,12 @@ export default function App() {
         />
       </View>
       <Text style={styles.inputError}>{inputError}</Text>
-      <FlatList
-        data={itemList}
-        renderItem={data => {
-          return (
-            <View style={[styles.item, styles.shadow]}>
-              <Text>{data.item.value}</Text>
-              <Button
-                title="X"
-                color="#AAAAAA"
-                onPress={() => handleModal(data.item.id)}
-              />
-            </View>
-          );
-        }}
-        keyExtractor={item => item.id}
+      
+      <Modal
+        modalVisible={modalVisible}
+        handleConfirmDelete={handleConfirmDelete}
+        itemSelected={itemSelected}
       />
-      <Modal animationType="slide" visible={modalVisible} transparent>
-        <View style={styles.modalContainer}>
-          <View style={[styles.modalContent, styles.shadow]}>
-            <Text style={styles.modalMessage}>¿Está seguro que desea borrar?</Text>
-            <Text style={styles.modalTitle}>{itemSelected.value}</Text>
-            <View>
-              <Button
-                onPress={handleConfirmDelete}
-                title="CONFIRMAR"
-              />
-            </View>
-          </View>
-        </View>
-      </Modal>
       <StatusBar style="auto" />
     </View>
   );
@@ -121,49 +98,4 @@ const styles = StyleSheet.create({
   inputError: {
     color: 'red',
   },
-  items: {
-    marginTop: 20,
-  },
-  item: {
-    padding: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: 'white',
-  },
-  modalContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalContent: {
-    padding: 30,
-    backgroundColor: 'white',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalMessage: {
-    fontSize: 18,
-  },
-  modalTitle: {
-    fontSize: 30,
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  shadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  }
 });
