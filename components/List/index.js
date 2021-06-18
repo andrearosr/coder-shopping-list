@@ -1,28 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
-  Button,
-  Text,
-  View,
   FlatList,
 } from 'react-native';
+import ListItem from './ListItem';
 
 const List = ({ itemList, handleModal }) => {
   return (
     <FlatList
       data={itemList}
-      renderItem={data => {
-        return (
-          <View style={[styles.item, styles.shadow]}>
-            <Text>{data.item.value}</Text>
-            <Button
-              title="X"
-              color="#AAAAAA"
-              onPress={() => handleModal(data.item.id)}
-            />
-          </View>
-        );
-      }}
+      renderItem={(data) => <ListItem handleModal={handleModal} data={data} />}
       keyExtractor={item => item.id}
     />
   );
@@ -31,18 +18,6 @@ const List = ({ itemList, handleModal }) => {
 const styles = StyleSheet.create({
   items: {
     marginTop: 20,
-  },
-  item: {
-    padding: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: 'white',
   },
 });
 

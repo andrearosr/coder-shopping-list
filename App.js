@@ -68,7 +68,7 @@ export default function App() {
         />
       </View>
       <Text style={styles.inputError}>{inputError}</Text>
-      
+      <List itemList={itemList} handleModal={handleModal} />
       <Modal
         modalVisible={modalVisible}
         handleConfirmDelete={handleConfirmDelete}
