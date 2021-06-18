@@ -6,10 +6,10 @@ import {
   Button,
   Text,
   View,
-  FlatList,
 } from 'react-native';
 import Modal from './components/Modal';
 import List from './components/List';
+import AddItem from './components/AddItem';
 
 export default function App() {
   const [inputText, setInputText] = useState('');
@@ -54,21 +54,16 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Agregar item"
-          style={styles.input}
-          onChangeText={handleChangeText}
-          value={inputText}
-        />
-        <Button
-          title="ADD"
-          color="#3D9970"
-          onPress={handleAddItem}
-        />
-      </View>
-      <Text style={styles.inputError}>{inputError}</Text>
-      <List itemList={itemList} handleModal={handleModal} />
+      <AddItem
+        handleChangeText={handleChangeText}
+        handleAddItem={handleAddItem}
+        inputError={inputError}
+        inputText={inputText}
+      />
+      <List
+        itemList={itemList}
+        handleModal={handleModal}
+      />
       <Modal
         modalVisible={modalVisible}
         handleConfirmDelete={handleConfirmDelete}
@@ -84,18 +79,5 @@ const styles = StyleSheet.create({
     padding: 30,
     backgroundColor: '#F0F0F0',
     flex: 1,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  input: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    width: 200,
-  },
-  inputError: {
-    color: 'red',
   },
 });
