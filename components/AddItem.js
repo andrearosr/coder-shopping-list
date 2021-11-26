@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -6,13 +6,33 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../store/actions/items.action';
 
-const AddItem = ({
-  handleChangeText,
-  handleAddItem,
-  inputText,
-  inputError,
-}) => {
+const AddItem = () => {
+  const [inputText, setInputText] = useState('');
+  const [inputError, setInputError] = useState('');
+
+  const dispatch = useDispatch();
+
+  const handleChangeText = (text) => {
+    setInputText(text);
+    setInputError('');
+  };
+
+  const handleAddItem = () => {
+    if (inputText) {
+      setInputText('');
+      setInputError('');
+      dispatch(addItem({
+        value: inputText,
+        id: Math.random().toString(),
+      }));
+    } else {
+      setInputError('Required');
+    }
+  }
+
   return (
     <React.Fragment>
       <View style={styles.inputContainer}>

@@ -6,18 +6,21 @@ import {
   View,
   Modal,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { confirmRemoveItem } from '../store/actions/items.action';
 
-function DeleteModal({
-  modalVisible,
-  itemSelected,
-  handleConfirmDelete,
-}) {
+function DeleteModal() {
+  const dispatch = useDispatch();
+  const itemSelected = useSelector(state => state.items.selected);
+
+  const handleConfirmDelete = () => dispatch(confirmRemoveItem());
+
   return (
-    <Modal animationType="slide" visible={modalVisible} transparent>
+    <Modal animationType="slide" visible={!!itemSelected} transparent>
       <View style={styles.modalContainer}>
         <View style={[styles.modalContent, styles.shadow]}>
           <Text style={styles.modalMessage}>¿Está seguro que desea borrar?</Text>
-          <Text style={styles.modalTitle}>{itemSelected.value}</Text>
+          <Text style={styles.modalTitle}>{itemSelected && itemSelected.value}</Text>
           <View>
             <Button
               onPress={handleConfirmDelete}
