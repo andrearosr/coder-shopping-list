@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Modal from './components/Modal';
 import List from './components/List';
-import AddItem from './components/AddItem';
+import AddItem from "./components/AddItem";
 
 export default function App() {
   const [inputText, setInputText] = useState('');
